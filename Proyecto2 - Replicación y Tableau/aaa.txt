@@ -1,0 +1,23 @@
+### Cargar archivos###
+# Archivo 1 - INEC
+inec_path = inec_file_path = 'C:\\Users\\Vale\\Documents\\TEC\\IS 2024\\BD2\\Proyecto3_BD2 - VCO\\reempleocenso2011-22.xls_2.xls'
+inec_data = pd.read_excel(inec_path, skiprows=4) # lee desde la fila 5 - índice 4
+
+# Eliminar filas innecesarias (filas de encabezado repetidas y filas vacías)
+inec_data = inec_data.dropna(subset=['Unnamed: 1']).reset_index(drop=True)
+
+# Verificar la estructura de las columnas antes de renombrarlas
+print("Columnas actuales del DataFrame de INEC:")
+print(inec_data.columns)
+
+# Renombrar las columnas para que tengan nombres significativos
+renamed_cols = ['Provincia_Canton_Distrito', 'Poblacion_15_y_mas', 'Tasa_neta_participacion', 
+                        'Tasa_ocupacion', 'Tasa_desempleo_abierto', 'Porcentaje_poblacion_economicamente_inactiva', 
+                        'Relacion_dependencia_economica', 'Porcentaje_poblacion_ocupada', 'Sector_Primario', 
+                        'Sector_Secundario', 'Sector_Terciario']
+
+inec_data.columns = renamed_cols[:len(inec_data.columns)]
+
+# Verificar que se cargó correctamente - Mostrar 1ras filas del DataFrame
+print("Datos del INEC:")
+print(inec_data.head())
